@@ -1,0 +1,44 @@
+services:
+  # Contenedor de Base de Datos
+  db:
+    image: postgres:15-alpine
+    container_name: db_proyecto
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./Db:/docker-entrypoint-initdb.d
+      - postgres_data:/var/lib/postgresql/data
+
+  # Contenedor del Backend (Node.js)
+  backend:
+    build: ./Backend
+    container_name: api_proyecto
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
+    volumes:
+      - ./Backend:/app
+      - /app/node_modules
+
+  # Contenedor del Frontend (Nginx)
+  frontend:
+    image: nginx:alpine
+    container_name: web_proyecto
+    ports:
+      - "8080:80"
+    volumes:
+      - ./Frontend:/usr/share/nginx/html
+
+volumes:
+  postgres_data:
