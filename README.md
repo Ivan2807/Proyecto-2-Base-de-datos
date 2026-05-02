@@ -54,5 +54,6 @@ Manejo de Errores: Validaciones y mensajes informativos (alertas) integrados en 
 
 Universidad del Valle de Guatemala
 
-**Hecho por:**Ivan Morataya
+**Hecho por:**
+Ivan Morataya
 **Carnet:** 16667
