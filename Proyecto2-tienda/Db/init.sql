@@ -62,6 +62,8 @@ CREATE VIEW vista_resumen_ventas AS
     JOIN clientes c ON v.id_cliente = c.id_cliente
     JOIN empleados e ON v.id_empleado = e.id_empleado;
 
+
+
 -- 1. CATEGORIAS (25 registros) 
 INSERT INTO categorias (nombre, descripcion) VALUES ('Electrónica', 'Dispositivos electrónicos y accesorios tecnológicos');
 INSERT INTO categorias (nombre, descripcion) VALUES ('Ropa y Moda', 'Prendas de vestir para hombre, mujer y niños');
@@ -338,3 +340,17 @@ INSERT INTO detalle_venta (id_venta, id_producto, cantidad, precio_unitario) VAL
 (30, 24, 2, 89.00), 
 (30, 19, 1, 52.00), 
 (30, 22, 1, 75.00); 
+
+DROP VIEW IF EXISTS vista_inventario_completo;
+
+CREATE VIEW vista_inventario_completo AS
+SELECT 
+    p.id_producto,
+    p.nombre AS producto_nombre,
+    p.stock,
+    p.precio_unitario,
+    c.nombre AS categoria_nombre,
+    prov.nombre AS proveedor_nombre
+FROM productos p
+JOIN categorias c ON p.id_categoria = c.id_categoria
+JOIN proveedores prov ON p.id_proveedor = prov.id_proveedor;

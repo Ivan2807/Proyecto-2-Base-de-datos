@@ -38,7 +38,8 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - ./Frontend:/usr/share/nginx/html
+      - ./Frontend:/usr/share/nginx/html:ro
+
 
 volumes:
   postgres_data:
