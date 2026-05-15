@@ -36,6 +36,31 @@ Frontend: http://localhost:8080
 
 Backend (API): http://localhost:3000
 
+4.**Roles Creados**
+### Roles Definidos:
+| Rol | Descripción | Permisos |
+| :--- | :--- | :--- |
+| **admin_role** | Superusuario | Acceso total a todas las tablas y secuencias. |
+| **inventario_role** | Bodega | CRUD en productos, categorías y proveedores. |
+| **ventas_role** | Cajero | Insertar ventas y actualizar stock de productos. |
+| **cliente_role** | App Usuario | Solo lectura de productos y registro de cliente. |
+| **auditor_role** | Auditoría | Acceso de solo lectura (`SELECT`) a todo el esquema. |
+
+### Esquema de Permisos
+* Los usuarios de ventas no pueden eliminar productos.
+* Los clientes no tienen acceso a la tabla de empleados.
+* Se crearon usuarios de prueba vinculados a cada rol para validación inmediata (ver sección de Usuarios de Prueba).
+
+## Usuarios de prueba
+| Usuario | Contraseña | Rol Asignado |
+| :--- | :--- | :--- |
+| `user_admin` | `admin123` | admin_role |
+| `user_cajero` | `venta123` | ventas_role |
+| `user_bodega` | `stock123` | inventario_role |
+| `user_cliente`| `visitante123` | cliente_role |
+| `user_auditor`| `audit123` | auditor_role |
+
+
 II. SQL (Consultas Avanzadas)
 Transacciones: Ruta /api/pagar con manejo explícito de BEGIN, COMMIT y ROLLBACK para el descuento de stock.
 
